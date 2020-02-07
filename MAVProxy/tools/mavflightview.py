@@ -171,10 +171,11 @@ def colour_for_point(mlog, point, instance, options):
         except KeyError:
             colour_expression_exceptions[str_e] = 0
             count = 0
-        if count > 100:
-            print("Too many exceptions processing (%s): %s" % (source, str_e))
-            sys.exit(1)
-        colour_expression_exceptions[str_e] += 1
+        #Swoop PL: don't want to error if we clip`
+        #if count > 100:
+        #   print("Too many exceptions processing (%s): %s" % (source, str_e))
+        #   sys.exit(1)
+        #colour_expression_exceptions[str_e] += 1
         v = 0
 
     # we don't use evaluate_expression as we want the exceptions...
@@ -183,13 +184,13 @@ def colour_for_point(mlog, point, instance, options):
     if v is None:
         v = 0
     elif isinstance(v, str):
-        print("colour expression returned a string: %s" % v)
+        #print("colour expression returned a string: %s" % v)
         sys.exit(1)
     elif v < 0:
-        print("colour expression returned %d (< 0)" % v)
+        #print("colour expression returned %d (< 0)" % v)
         v = 0
     elif v > 255:
-        print("colour expression returned %d (> 255)" % v)
+        #print("colour expression returned %d (> 255)" % v)
         v = 255
 
     if v < colour_source_min:
@@ -246,7 +247,7 @@ def mavflightview_mav(mlog, options=None, flightmode_selections=[]):
     if options.types is not None:
         types.extend(options.types.split(','))
     else:
-        types.extend(['GPS','GLOBAL_POSITION_INT'])
+        #types.extend(['GPS','GLOBAL_POSITION_INT'])
         if options.rawgps or options.dualgps:
             types.extend(['GPS', 'GPS_RAW_INT'])
         if options.rawgps2 or options.dualgps:
@@ -257,6 +258,8 @@ def mavflightview_mav(mlog, options=None, flightmode_selections=[]):
             types.extend(['NKF1', 'GPS'])
         if options.ahr2:
             types.extend(['AHR2', 'AHRS2', 'GPS'])
+        if options.pl:
+            types.extend(['PL'])
 
     recv_match_types = types[:]
     colour_source = getattr(options, "colour_source")
@@ -366,6 +369,8 @@ def mavflightview_mav(mlog, options=None, flightmode_selections=[]):
                 (lat, lng) = (m.Lat, m.Lng)
             elif type == 'SIM':
                 (lat, lng) = (m.Lat, m.Lng)
+            elif type == 'PL':
+                (lat, lng) = (m.lat, m.lng)
             else:
                 lat = m.lat * 1.0e-7
                 lng = m.lon * 1.0e-7
@@ -516,6 +521,7 @@ if __name__ == "__main__":
     parser.add_option("--ekf", action='store_true', default=False, help="use EKF1 pos")
     parser.add_option("--nkf", action='store_true', default=False, help="use NKF1 pos")
     parser.add_option("--ahr2", action='store_true', default=False, help="use AHR2 pos")
+    parser.add_option("--pl", action='store_true', default=False, help="use Precision Landing pos")
     parser.add_option("--debug", action='store_true', default=False, help="show debug info")
     parser.add_option("--multi", action='store_true', default=False, help="show multiple flights on one map")
     parser.add_option("--types", default=None, help="types of position messages to show")

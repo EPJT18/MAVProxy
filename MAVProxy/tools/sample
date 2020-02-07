@@ -1,0 +1,1 @@
+python mavflightview.py --pl --colour-source=PL.cov*50 <filepath>
