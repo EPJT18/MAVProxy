@@ -15,8 +15,8 @@ class SwoopModule(mp_module.MPModule):
         'handle a mavlink packet'''
 
         if m.get_type() == 'SWOOP_FLAGS':
-           
-	        print ('armingFlags: %f' %  m.armingFlags)
+           	print ('Got a Flagging Packet')
+	        print (str(m.armingFlags1))
 
             
 
