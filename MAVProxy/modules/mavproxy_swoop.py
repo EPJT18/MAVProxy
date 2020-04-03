@@ -87,6 +87,12 @@ class SwoopModule(mp_module.MPModule):
                 print('Airspeed Detail ' + str(m.airspeedDetail))
             if(m.servoDetail >0 ):
                 print('Servo Detail ' + str(m.servoDetail))
+        if m.get_type() == 'SWOOP_STATUS':
+            print('Got Flight Status')
+            print('Flight Status: ' + str(m.flightStatus))
+            print('Waypoint Type: ' + str(m.waypointType))
+            print('Next Waypoint Type: ' + str(m.nextWaypointType))   	
+
             
 
 def init(mpstate):
