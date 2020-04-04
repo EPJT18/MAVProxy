@@ -87,16 +87,18 @@ class SwoopModule(mp_module.MPModule):
                 print('Airspeed Detail ' + str(m.airspeedDetail))
             if(m.servoDetail >0 ):
                 print('Servo Detail ' + str(m.servoDetail))
-        #if m.get_type() == 'SWOOP_STATUS':
-            #print('Got Flight Status')
-            #print('Flight Status: ' + str(m.flightStatus))
-            #print('Waypoint Type: ' + str(m.waypointType))
-            #print('Next Waypoint Type: ' + str(m.nextWaypointType)) 
-        if m.get_type() == 'SWOOP_ENERGY':
-            print('Got energy') 
-            print('F Endurance: ' + str(m.ForwardEndurance))
-            print('F Health: ' + str(m.ForwardHealth))	
-            print('F %: ' + str(m.ForwardWHrPortionRemaining))
+        if m.get_type() == 'SWOOP_STATUS':
+            print('Got Flight Status')
+            print('Flight Status: ' + str(m.flightStatus))
+            print('Waypoint Type: ' + str(m.waypointType))
+            print('Next Waypoint Type: ' + str(m.nextWaypointType)) 
+            print('DO Jump COunter: ' + str(m.waypointJumper)) 
+        #if m.get_type() == 'SWOOP_ENERGY':
+         #   print('Got energy') 
+          #  print('F Endurance: ' + str(m.ForwardEndurance))
+           # print('F Health: ' + str(m.ForwardHealth))	
+            #print('F %: ' + str(m.ForwardWHrPortionRemaining))
+            #print('ETR: ' + str(m.ForwardTimeToNextLanding))
 
             
 
