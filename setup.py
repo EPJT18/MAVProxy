@@ -1,7 +1,7 @@
 from setuptools import setup
 import os, platform
 
-version = "1.8.18"
+version = "1.8.18.s1"
 
 def package_files(directory):
     paths = []
@@ -40,10 +40,10 @@ if platform.system() == "Darwin":
                          'future',
                          'wxPython'])
 
-setup(name='MAVProxy',
+setup(name='swoop_MAVProxy',
       version=version,
       zip_safe=True,
-      description='MAVProxy MAVLink ground station',
+      description='Swoop fork of MAVProxy MAVLink ground station',
       long_description='''A MAVLink protocol proxy and ground station. MAVProxy
 is oriented towards command line operation, and is suitable for embedding in
 small autonomous vehicles or for using on ground control stations. It also
