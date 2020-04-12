@@ -99,6 +99,12 @@ class SwoopModule(mp_module.MPModule):
            # print('F Health: ' + str(m.ForwardHealth))	
             #print('F %: ' + str(m.ForwardWHrPortionRemaining))
             #print('ETR: ' + str(m.ForwardTimeToNextLanding))
+        if m.get_type() == 'SWOOP_ARMING_FLAGS':
+            print('Arming Check')
+            print('Passed Check: ' + str(m.armingCheckStatus))
+            print('Byte 1: ' + str(m.armingCheckFlags1))
+            print('Byte 2: ' + str(m.armingCheckFlags2)) 
+            print('Byte 3: ' + str(m.armingCheckFlags3)) 
 
             
 
