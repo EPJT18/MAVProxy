@@ -1,2 +1,2 @@
-pymavlink==2.2.8.s2
+pymavlink==2.4.1.s2
 pyserial>=3.0
