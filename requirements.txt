@@ -1,2 +1,2 @@
-pymavlink==2.4.1.s2
+swoop-pymavlink==3.5.0
 pyserial>=3.0

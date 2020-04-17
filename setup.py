@@ -1,7 +1,7 @@
 from setuptools import setup
 import os, platform
 
-version = "1.8.18.s2"
+version = "3.5.0"
 
 def package_files(directory):
     paths = []
@@ -39,7 +39,7 @@ if platform.system() == "Darwin":
                          'future',
                          'wxPython'])
 
-setup(name='MAVProxy',
+setup(name='swoop-MAVProxy',
       version=version,
       zip_safe=True,
       description='Swoop fork of MAVProxy MAVLink ground station',
