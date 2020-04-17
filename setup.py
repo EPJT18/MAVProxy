@@ -39,7 +39,7 @@ if platform.system() == "Darwin":
                          'future',
                          'wxPython'])
 
-setup(name='swoop_MAVProxy',
+setup(name='MAVProxy',
       version=version,
       zip_safe=True,
       description='Swoop fork of MAVProxy MAVLink ground station',
