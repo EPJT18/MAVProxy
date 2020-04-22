@@ -27,7 +27,7 @@ package_data.extend(package_files('MAVProxy/modules/mavproxy_cesium/app'))
 # use the system versions of these dependencies, so it tries to download and install
 # large numbers of modules like numpy etc which may be already installed
 requirements=['pyserial>=3.0',
-                'swoop-pymavlink==3.5.1']
+                'swoop-pymavlink==3.5.2']
 
 if platform.system() == "Darwin":
     # on MacOS we can have a more complete requirements list
