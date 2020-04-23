@@ -1,7 +1,7 @@
 from setuptools import setup
 import os, platform
 
-version = "3.5.1"
+version = "1.8.19"
 
 def package_files(directory):
     paths = []
@@ -26,8 +26,7 @@ package_data.extend(package_files('MAVProxy/modules/mavproxy_cesium/app'))
 # as that breaks the pip install. It seems that pip is not smart enough to
 # use the system versions of these dependencies, so it tries to download and install
 # large numbers of modules like numpy etc which may be already installed
-requirements=['pyserial>=3.0',
-                'swoop-pymavlink==3.5.2']
+requirements=['pyserial>=3.0']
 
 if platform.system() == "Darwin":
     # on MacOS we can have a more complete requirements list
@@ -40,10 +39,10 @@ if platform.system() == "Darwin":
                          'future',
                          'wxPython'])
 
-setup(name='swoop-MAVProxy',
+setup(name='MAVProxy',
       version=version,
       zip_safe=True,
-      description='Swoop fork of MAVProxy MAVLink ground station',
+      description='MAVProxy MAVLink ground station',
       long_description='''A MAVLink protocol proxy and ground station. MAVProxy
 is oriented towards command line operation, and is suitable for embedding in
 small autonomous vehicles or for using on ground control stations. It also
