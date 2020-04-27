@@ -55,6 +55,10 @@ class SwoopModule(mp_module.MPModule):
                 print('Airspeed Intensity ' + str(m.airspeedIntensity))
             if(m.servoIntensity >0 ):
                 print('Servo Intensity ' + str(m.servoIntensity))
+            if(m.servoIntensity >0 ):
+                print('Target Search Intensity ' + str(m.targetSearchFailedIntensity))
+            if(m.servoIntensity >0 ):
+                print('ADSB Intensity ' + str(m.adsbFlagsIntensity))
             if(m.hoverAssistDetail>0):
                 print('Hover Asssit Detail ' + str(m.hoverAssistDetail))
             if(m.emergencyLandDetail>0):
@@ -87,24 +91,29 @@ class SwoopModule(mp_module.MPModule):
                 print('Airspeed Detail ' + str(m.airspeedDetail))
             if(m.servoDetail >0 ):
                 print('Servo Detail ' + str(m.servoDetail))
-        if m.get_type() == 'SWOOP_STATUS':
-            print('Got Flight Status')
-            print('Flight Status: ' + str(m.flightStatus))
-            print('Waypoint Type: ' + str(m.waypointType))
-            print('Next Waypoint Type: ' + str(m.nextWaypointType)) 
-            print('DO Jump COunter: ' + str(m.waypointJumper)) 
-        #if m.get_type() == 'SWOOP_ENERGY':
-         #   print('Got energy') 
-          #  print('F Endurance: ' + str(m.ForwardEndurance))
-           # print('F Health: ' + str(m.ForwardHealth))	
-            #print('F %: ' + str(m.ForwardWHrPortionRemaining))
-            #print('ETR: ' + str(m.ForwardTimeToNextLanding))
-        if m.get_type() == 'SWOOP_ARMING_FLAGS':
-            print('Arming Check')
-            print('Passed Check: ' + str(m.armingCheckStatus))
-            print('Byte 1: ' + str(m.armingCheckFlags1))
-            print('Byte 2: ' + str(m.armingCheckFlags2)) 
-            print('Byte 3: ' + str(m.armingCheckFlags3)) 
+            if(m.servoDetail >0 ):
+                print('Target Search Detail ' + str(m.targetSearchFailedDetail))
+            if(m.servoDetail >0 ):
+                print('ADSB Detail ' + str(m.adsbFlagsDetail))
+
+        # if m.get_type() == 'SWOOP_STATUS':
+        #     print('Got Flight Status')
+        #     print('Flight Status: ' + str(m.flightStatus))
+        #     print('Waypoint Type: ' + str(m.waypointType))
+        #     print('Next Waypoint Type: ' + str(m.nextWaypointType)) 
+        #     print('DO Jump COunter: ' + str(m.waypointJumper)) 
+        # #if m.get_type() == 'SWOOP_ENERGY':
+        #  #   print('Got energy') 
+        #   #  print('F Endurance: ' + str(m.ForwardEndurance))
+        #    # print('F Health: ' + str(m.ForwardHealth))	
+        #     #print('F %: ' + str(m.ForwardWHrPortionRemaining))
+        #     #print('ETR: ' + str(m.ForwardTimeToNextLanding))
+        # if m.get_type() == 'SWOOP_ARMING_FLAGS':
+        #     print('Arming Check')
+        #     print('Passed Check: ' + str(m.armingCheckStatus))
+        #     print('Byte 1: ' + str(m.armingCheckFlags1))
+        #     print('Byte 2: ' + str(m.armingCheckFlags2)) 
+        #     print('Byte 3: ' + str(m.armingCheckFlags3)) 
 
             
 
