@@ -27,6 +27,7 @@ except ImportError:
 
 from builtins import input
 
+from MAVProxy.constants import *
 from MAVProxy.modules.lib import textconsole
 from MAVProxy.modules.lib import rline
 from MAVProxy.modules.lib import mp_module
@@ -729,8 +730,9 @@ def process_mavlink(slave):
             mbuf = m.get_msgbuf()
             mpstate.master().write(mbuf)
             if mpstate.logqueue:
-                usec = int(time.time() * 1.0e6)
-                mpstate.logqueue.put(bytearray(struct.pack('>Q', usec) + m.get_msgbuf()))
+                if m.get_type() not in LOG_MSG_TYPE_FILTER:
+                    usec = int(time.time() * 1.0e6)
+                    mpstate.logqueue.put(bytearray(struct.pack('>Q', usec) + m.get_msgbuf()))
             if mpstate.status.watch:
                 for msg_type in mpstate.status.watch:
                     if fnmatch.fnmatch(m.get_type().upper(), msg_type.upper()):

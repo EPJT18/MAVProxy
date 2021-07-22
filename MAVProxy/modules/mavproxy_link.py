@@ -9,6 +9,7 @@
 from pymavlink import mavutil
 import time, struct, math, sys, fnmatch, traceback, json
 
+from MAVProxy.constants import *
 from MAVProxy.modules.lib import mp_module
 from MAVProxy.modules.lib import mp_util
 
@@ -310,7 +311,7 @@ class LinkModule(mp_module.MPModule):
                     break
 
         mtype = m.get_type()
-        if mtype != 'BAD_DATA' and self.mpstate.logqueue:
+        if mtype != 'BAD_DATA' and self.mpstate.logqueue and mtype not in LOG_MSG_TYPE_FILTER:
             usec = self.get_usec()
             usec = (usec & ~3) | 3 # linknum 3
             self.mpstate.logqueue.put(bytearray(struct.pack('>Q', usec) + m.get_msgbuf()))
@@ -642,7 +643,7 @@ class LinkModule(mp_module.MPModule):
                         link.write(m.get_msgbuf())
 
         # and log them
-        if mtype not in dataPackets and self.mpstate.logqueue:
+        if mtype not in dataPackets and self.mpstate.logqueue and mtype not in LOG_MSG_TYPE_FILTER:
             # put link number in bottom 2 bits, so we can analyse packet
             # delay in saved logs
             usec = self.get_usec()
