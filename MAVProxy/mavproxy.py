@@ -761,12 +761,11 @@ def log_writer():
             mpstate.logfile.write(mpstate.logqueue.get())
         if mpstate.settings.flushlogs or time.time() >= timeout:
             mpstate.logfile.flush()
-            mpstate.logfile_raw.flush()
 
 # If state_basedir is NOT set then paths for logs and aircraft
 # directories are relative to mavproxy's cwd
 def log_paths():
-    '''Returns tuple (logdir, telemetry_log_filepath, raw_telemetry_log_filepath)'''
+    '''Returns tuple (logdir, telemetry_log_filepath)'''
     if opts.aircraft is not None:
         dirname = ""
         if opts.mission is not None:
@@ -801,11 +800,10 @@ def log_paths():
 
     mkdir_p(logdir)
     return (logdir,
-            os.path.join(logdir, logname),
-            os.path.join(logdir, logname + '.raw'))
+            os.path.join(logdir, logname))
 
 
-def open_telemetry_logs(logpath_telem, logpath_telem_raw):
+def open_telemetry_logs(logpath_telem):
     '''open log files'''
     if opts.append_log or opts.continue_mode:
         mode = 'ab'
@@ -814,7 +812,6 @@ def open_telemetry_logs(logpath_telem, logpath_telem_raw):
 
     try:
         mpstate.logfile = open(logpath_telem, mode=mode)
-        mpstate.logfile_raw = open(logpath_telem_raw, mode=mode)
         print("Log Directory: %s" % mpstate.status.logdir)
         print("Telemetry log: %s" % logpath_telem)
 
@@ -1282,7 +1279,7 @@ if __name__ == '__main__':
         mpstate.rl.set_prompt("")
 
     # call this early so that logdir is setup based on --aircraft
-    (mpstate.status.logdir, logpath_telem, logpath_telem_raw) = log_paths()
+    (mpstate.status.logdir, logpath_telem) = log_paths()
 
     for module in opts.load_module:
         modlist = module.split(',')
@@ -1335,7 +1332,7 @@ if __name__ == '__main__':
         yappi.start()
 
     # log all packets from the master, for later replay
-    open_telemetry_logs(logpath_telem, logpath_telem_raw)
+    open_telemetry_logs(logpath_telem)
 
     # run main loop as a thread
     mpstate.status.thread = threading.Thread(target=main_loop, name='main_loop')
