@@ -678,9 +678,6 @@ def process_master(m):
     if (mpstate.settings.compdebug & 1) != 0:
         return
 
-    if mpstate.logqueue_raw:
-        mpstate.logqueue_raw.put(bytearray(s))
-
     if mpstate.status.setup_mode:
         if mpstate.system == 'Windows':
            # strip nsh ansi codes
@@ -757,10 +754,7 @@ def mkdir_p(dir):
 def log_writer():
     '''log writing thread'''
     while True:
-        mpstate.logfile_raw.write(bytearray(mpstate.logqueue_raw.get()))
         timeout = time.time() + 10
-        while not mpstate.logqueue_raw.empty() and time.time() < timeout:
-            mpstate.logfile_raw.write(mpstate.logqueue_raw.get())
         while not mpstate.logqueue.empty() and time.time() < timeout:
             mpstate.logfile.write(mpstate.logqueue.get())
         if mpstate.settings.flushlogs or time.time() >= timeout:
@@ -1192,7 +1186,6 @@ if __name__ == '__main__':
     mpstate.continue_mode = opts.continue_mode
     # queues for logging
     mpstate.logqueue = Queue.Queue()
-    mpstate.logqueue_raw = Queue.Queue()
 
 
     if opts.speech:
