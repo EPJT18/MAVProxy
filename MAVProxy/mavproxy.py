@@ -27,13 +27,14 @@ except ImportError:
 
 from builtins import input
 
-from MAVProxy.modules.lib import textconsole
-from MAVProxy.modules.lib import rline
-from MAVProxy.modules.lib import mp_module
-from MAVProxy.modules.lib import dumpstacks
-from MAVProxy.modules.lib import mp_substitute
-from MAVProxy.modules.lib import multiproc
-from MAVProxy.modules.mavproxy_link import preferred_ports
+from modules.lib import textconsole
+from modules.lib import rline
+from modules.lib import mp_module
+from modules.lib import dumpstacks
+from modules.lib import mp_substitute
+from modules.lib import multiproc
+from modules.mavproxy_link import preferred_ports
+from constants import *
 
 # adding all this allows pyinstaller to build a working windows executable
 # note that using --hidden-import does not work for these modules
@@ -393,7 +394,7 @@ def generate_kwargs(args):
 
 def load_module(modname, quiet=False, **kwargs):
     '''load a module'''
-    modpaths = ['MAVProxy.modules.mavproxy_%s' % modname, modname]
+    modpaths = ['modules.mavproxy_%s' % modname, modname]
     for (m,pm) in mpstate.modules:
         if m.name == modname and not modname in mpstate.multi_instance:
             if not quiet:
@@ -729,8 +730,9 @@ def process_mavlink(slave):
             mbuf = m.get_msgbuf()
             mpstate.master().write(mbuf)
             if mpstate.logqueue:
-                usec = int(time.time() * 1.0e6)
-                mpstate.logqueue.put(bytearray(struct.pack('>Q', usec) + m.get_msgbuf()))
+                if m.get_type() not in LOG_MSG_TYPE_FILTER:
+                    usec = int(time.time() * 1.0e6)
+                    mpstate.logqueue.put(bytearray(struct.pack('>Q', usec) + m.get_msgbuf()))
             if mpstate.status.watch:
                 for msg_type in mpstate.status.watch:
                     if fnmatch.fnmatch(m.get_type().upper(), msg_type.upper()):
